@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tradedai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #ffffff;
+    color: #111111;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  nav.scrolled {
+    border-bottom-color: #f0f0f0;
+  }
+
+  .nav-left {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #1a1a1a;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .nav-social {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    color: #999;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-social:hover {
+    color: #1a1a1a;
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 14px;
+    background: #e0e0e0;
+  }
+
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    background: #1a1a1a;
+    border: 1px solid #1a1a1a;
+    padding: 6px 16px;
+    border-radius: 100px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nav-cta:hover {
+    background: #333;
+  }
+
+  /* LETTER */
+  .page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 8rem 1.5rem 6rem;
+  }
+
+  .letter {
+    max-width: 620px;
+    width: 100%;
+  }
+
+  .body p {
+    font-family: 'EB Garamond', serif;
+    font-size: 22px;
+    line-height: 1.85;
+    color: #1a1a1a;
+    margin-bottom: 2.25rem;
+    text-wrap: pretty;
+  }
+
+  .body p:last-child {
+    margin-bottom: 0;
+  }
+
+  mark {
+    background: #f0f0a1;
+    color: #1a1a1a;
+    padding: 1px 4px;
+    border-radius: 2px;
+    text-decoration: none;
+  }
+
+  .body a {
+    color: #1a1a1a;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: #ccc;
+    transition: text-decoration-color 0.2s;
+  }
+
+  .body a:hover {
+    text-decoration-color: #1a1a1a;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid #e5e5e5;
+    text-align: center;
+  }
+
+  .footer-tagline {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: #999;
+    margin-bottom: 0.75rem;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 320px;
+    width: 100%;
+    margin: 0 auto 2rem;
+  }
+
+  .newsletter-form input {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    padding: 10px 14px;
+    border: 1px solid #e0e0e0;
+    border-right: none;
+    border-radius: 0;
+    background: #fafafa;
+    color: #1a1a1a;
+    outline: none;
+    flex: 1;
+    transition: border-color 0.2s;
+  }
+
+  .newsletter-form input::placeholder {
+    color: #bbb;
+  }
+
+  .newsletter-form input:focus {
+    border-color: #999;
+  }
+
+  .newsletter-form button {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    padding: 10px 16px;
+    border: 1px solid #1a1a1a;
+    background: #1a1a1a;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .newsletter-form button:hover {
+    background: #333;
+  }
+
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .socials a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: #1a1a1a;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    padding: 8px 20px;
+    border-radius: 100px;
+    transition: all 0.2s;
+  }
+
+  .socials a:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-color: #1a1a1a;
+  }
+
+  /* POPUP */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .overlay.active {
+    display: flex;
+  }
+
+  .popup {
+    background: #ffffff;
+    max-width: 420px;
+    width: 90%;
+    padding: 2.5rem;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    color: #999;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+
+  .popup-close:hover {
+    color: #1a1a1a;
+  }
+
+  .popup-headline {
+    font-family: 'EB Garamond', serif;
+    font-size: 22px;
+    line-height: 1.5;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+
+  .popup-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    color: #999;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .popup-form {
+    display: flex;
+    gap: 0;
+  }
+
+  .popup-form input {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    padding: 10px 14px;
+    border: 1px solid #e0e0e0;
+    border-right: none;
+    border-radius: 0;
+    background: #fafafa;
+    color: #1a1a1a;
+    outline: none;
+    flex: 1;
+    transition: border-color 0.2s;
+  }
+
+  .popup-form input::placeholder {
+    color: #bbb;
+  }
+
+  .popup-form input:focus {
+    border-color: #999;
+  }
+
+  .popup-form button {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    padding: 10px 16px;
+    border: 1px solid #1a1a1a;
+    background: #1a1a1a;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .popup-form button:hover {
+    background: #333;
+  }
+
+  @media (max-width: 580px) {
+    nav {
+      padding: 0.75rem 1.25rem;
+    }
+    .nav-social {
+      font-size: 12px;
+      gap: 1rem;
+    }
+    .nav-left {
+      gap: 1rem !important;
+    }
+    .page {
+      padding: 5rem 1rem 3.5rem;
+      min-height: auto;
+    }
+    .body p {
+      font-size: 17px;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+    .letter {
+      max-width: 100%;
+    }
+    .footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+    }
+    .socials {
+      gap: 0.5rem;
+    }
+    .socials a {
+      padding: 8px 16px;
+      font-size: 11px;
+    }
+    .newsletter-form {
+      max-width: 100%;
+    }
+    .popup {
+      padding: 2rem 1.5rem;
+      width: 92%;
+    }
+    .popup-headline {
+      font-size: 19px;
+    }
+    .nav-divider { display: none; }
+  }
+
+  @media (max-width: 380px) {
+    .nav-left {
+      gap: 0.75rem !important;
+    }
+    .nav-social {
+      font-size: 11px;
+    }
+    .body p {
+      font-size: 17px;
+    }
+    .page {
+      padding: 4.5rem 1rem 3rem;
+    }
+    nav {
+      padding: 0.75rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-left" style="display: flex; align-items: center; gap: 1.25rem;">
+    <a href="https://x.com/damianplayer" target="_blank" class="nav-social">x</a>
+    <a href="https://youtube.com/@damianplayer" target="_blank" class="nav-social">youtube</a>
+    <a href="https://linkedin.com/in/damianplayer" target="_blank" class="nav-social">linkedin</a>
+    <a id="nav-email-link" class="nav-social">email</a>
+    <a class="nav-social" style="cursor: pointer; display: none;" onclick="document.getElementById('overlay').classList.add('active')">subscribe</a>
+  </div>
+</nav>
+
+<!-- POPUP (hidden for now) -->
+<div class="overlay" id="overlay" style="display: none !important;" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="popup">
+    <button class="popup-close" onclick="document.getElementById('overlay').classList.remove('active')">&times;</button>
+    <p class="popup-headline">the world is changing. don't&nbsp;read&nbsp;about&nbsp;it&nbsp;late.</p>
+    <p class="popup-sub">AI, tech, and culture. one email. no noise.</p>
+    <form class="popup-form" onsubmit="event.preventDefault();">
+      <input type="email" placeholder="your email">
+      <button type="submit">subscribe</button>
+    </form>
+  </div>
+</div>
+
+<!-- LETTER -->
+<div class="page">
+<div class="letter">
+
+  <div class="body">
+    <p>the world is going AI-native. most people don't even know what that means yet. it's going to change how you work, how you hire, how you sell, how you build. everything.</p>
+
+    <p>there's a conversation happening right now about where all of this is going. AI, tech, money, power. but it's happening in <mark>a room most people&nbsp;aren't&nbsp;in.</mark></p>
+
+    <p>we think the conversation should be bigger than that.</p>
+
+    <p>the founder and the contractor. the startup and the small business. the people building the technology and the people whose lives it's about to change. same conversation.&nbsp;same&nbsp;room.</p>
+
+    <p><a href="https://x.com/damianplayer/status/2025234388137468387" target="_blank">84% of people have never used AI. 0.3%&nbsp;pay&nbsp;for&nbsp;it.</a> the world is going AI-native whether people are ready or not. this isn't a tech story anymore. it's a cultural shift. and the media covering it hasn't&nbsp;caught&nbsp;up.</p>
+
+    <p>the world is changing. our job is making sure <mark>no one gets&nbsp;left&nbsp;behind.</mark></p>
+
+    <p style="margin-top: 3rem; margin-bottom: 0.25rem;">I'll be rooting for you,</p>
+    <p style="color: #1a1a1a; margin-bottom: 0;">Damian</p>
+  </div>
+
+  <div class="footer">
+    <p class="footer-tagline" style="display: none;">stay in the room.</p>
+    <form class="newsletter-form" style="display: none;" onsubmit="event.preventDefault();">
+      <input type="email" placeholder="your email">
+      <button type="submit">subscribe</button>
+    </form>
+    <div class="socials">
+      <a href="https://x.com/damianplayer" target="_blank">x</a>
+      <a href="https://youtube.com/@damianplayer" target="_blank">youtube</a>
+      <a href="https://linkedin.com/in/damianplayer" target="_blank">linkedin</a>
+      <a id="email-link">email</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+  document.getElementById('email-link').href = 'mail' + 'to:' + 'damianplayerr' + '@' + 'gmail.com';
+  document.getElementById('nav-email-link').href = 'mail' + 'to:' + 'damianplayerr' + '@' + 'gmail.com';
+
+  window.addEventListener('scroll', function() {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  var SHEET_URL = 'https://script.google.com/a/macros/antigamble.co/s/AKfycbygjOEBFDqnsBxgJMWFnYcR5M9JC2tkHVmPuBgRGGx4S9xrUug1g1ICbj8E93jzxL8A/exec';
+
+  document.querySelectorAll('.newsletter-form, .popup-form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var input = form.querySelector('input[type="email"]');
+      var btn = form.querySelector('button');
+      var email = input.value.trim();
+
+      if (!email) return;
+
+      btn.textContent = 'sending...';
+      btn.style.opacity = '0.6';
+
+      fetch(SHEET_URL + '?email=' + encodeURIComponent(email), {
+        mode: 'no-cors'
+      }).then(function() {
+        btn.textContent = 'you\'re in';
+        btn.style.background = '#2a2a2a';
+        input.value = '';
+        setTimeout(function() {
+          btn.textContent = 'subscribe';
+          btn.style.opacity = '1';
+        }, 3000);
+      }).catch(function() {
+        btn.textContent = 'try again';
+        btn.style.opacity = '1';
+        setTimeout(function() {
+          btn.textContent = 'subscribe';
+        }, 2000);
+      });
+    });
+  });
+</script>
+</body>
+</html>
