@@ -88,6 +88,13 @@
     color: #1a1a1a;
   }
 
+  .nav-pipe {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: #ddd;
+    user-select: none;
+  }
+
   .nav-divider {
     width: 1px;
     height: 14px;
@@ -368,6 +375,7 @@
     }
     .nav-left {
       gap: 1rem !important;
+      flex-wrap: wrap;
     }
     .page {
       padding: 5rem 1rem 3.5rem;
@@ -377,6 +385,9 @@
       font-size: 17px;
       line-height: 1.75;
       margin-bottom: 1.75rem;
+    }
+    .body p:first-child {
+      font-size: 26px !important;
     }
     .letter {
       max-width: 100%;
@@ -428,11 +439,17 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-left" style="display: flex; align-items: center; gap: 1.25rem;">
+  <div class="nav-left" style="display: flex; align-items: center; gap: 0.75rem;">
+    <a href="https://antigamble.co" target="_blank" class="nav-social">venture studio</a>
+    <span class="nav-pipe">|</span>
     <a href="https://x.com/damianplayer" target="_blank" class="nav-social">x</a>
+    <span class="nav-pipe">|</span>
     <a href="https://youtube.com/@damianplayer" target="_blank" class="nav-social">youtube</a>
+    <span class="nav-pipe">|</span>
     <a href="https://linkedin.com/in/damianplayer" target="_blank" class="nav-social">linkedin</a>
+    <span class="nav-pipe">|</span>
     <a id="nav-email-link" class="nav-social">email</a>
+    <!-- subscribe hidden for now -->
     <a class="nav-social" style="cursor: pointer; display: none;" onclick="document.getElementById('overlay').classList.add('active')">subscribe</a>
   </div>
 </nav>
@@ -455,7 +472,8 @@
 <div class="letter">
 
   <div class="body">
-    <p>the world is going AI-native. most people don't even know what that means yet. it's going to change how you work, how you hire, how you sell, how you build. everything.</p>
+    <p style="font-size: 32px; font-weight: 500; line-height: 1.4; margin-bottom: 1.5rem;">the world is going AI-native.</p>
+    <p>most people don't even know what that means yet. it's going to change how you work, how you hire, how you sell, how you build. everything.</p>
 
     <p>there's a conversation happening right now about where all of this is going. AI, tech, money, power. but it's happening in <mark>a room most people&nbsp;aren't&nbsp;in.</mark></p>
 
@@ -477,11 +495,16 @@
       <input type="email" placeholder="your email">
       <button type="submit">subscribe</button>
     </form>
-    <div class="socials">
-      <a href="https://x.com/damianplayer" target="_blank">x</a>
-      <a href="https://youtube.com/@damianplayer" target="_blank">youtube</a>
-      <a href="https://linkedin.com/in/damianplayer" target="_blank">linkedin</a>
-      <a id="email-link">email</a>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+      <a href="https://antigamble.co" target="_blank" class="nav-social">venture studio</a>
+      <span class="nav-pipe">|</span>
+      <a href="https://x.com/damianplayer" target="_blank" class="nav-social">x</a>
+      <span class="nav-pipe">|</span>
+      <a href="https://youtube.com/@damianplayer" target="_blank" class="nav-social">youtube</a>
+      <span class="nav-pipe">|</span>
+      <a href="https://linkedin.com/in/damianplayer" target="_blank" class="nav-social">linkedin</a>
+      <span class="nav-pipe">|</span>
+      <a id="email-link" class="nav-social">email</a>
     </div>
   </div>
 
